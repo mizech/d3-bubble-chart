@@ -34,7 +34,6 @@
             "translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("data.csv", function(data) {
-
         var x = d3.scaleLinear()
             .domain([0, 45000])
             .range([0, width]);
@@ -84,26 +83,17 @@
                 .style("left", (d3.mouse(this)[0] + 30) + "px")
                 .style("top", (d3.mouse(this)[1] + 30) + "px")
         }
-        var moveTooltip = function(d) {
-            tooltip
-                .style("left", (d3.mouse(this)[0] + 30) + "px")
-                .style("top", (d3.mouse(this)[1] + 30) + "px")
-        }
         var hideTooltip = function(d) {
             tooltip
                 .transition()
                 .duration(200)
                 .style("opacity", 0)
         }
-        var highlight = function(d) {
-            d3.selectAll(".bubbles").style("opacity", .05)
-            d3.selectAll("." + d).style("opacity", 1)
-        }
 
-        var noHighlight = function(d) {
-            d3.selectAll(".bubbles").style("opacity", 1)
-        }
-
+        const colors = ["#f00", "#00f", "#f0f", "#f5a",
+            "#faf", "#aff", "#5a5", "#a5a",
+            "#5aa", "#fa5"
+        ];
         svg.append('g')
             .selectAll("dot")
             .data(data)
@@ -118,5 +108,10 @@
             .attr("r", function(d) {
                 return z(d.pop);
             })
+            .style("fill", function(d, i) {
+                return colors[i];
+            })
+            .on("mouseover", showTooltip)
+            .on("mouseleave", hideTooltip)
     })
 </script>
