@@ -9,13 +9,13 @@ const setupChart = (numb = 0) => {
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv(`./csv/data${numb}.csv`, function(data) {
-        var x = d3.scaleLinear()
+    d3.csv(`./csv/data${numb}.csv`, (data) => {
+        var xAxis = d3.scaleLinear()
             .domain([0, 45000])
             .range([0, width]);
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).ticks(3));
+            .call(d3.axisBottom(xAxis).ticks(3));
 
         svg.append("text")
             .attr("text-anchor", "end")
@@ -23,11 +23,11 @@ const setupChart = (numb = 0) => {
             .attr("y", height + 50)
             .text("Pro-Kopf-Einkommen");
 
-        var y = d3.scaleLinear()
+        var yAxis = d3.scaleLinear()
             .domain([35, 90])
             .range([height, 0]);
         svg.append("g")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(yAxis));
 
         svg.append("text")
             .attr("text-anchor", "end")
@@ -36,22 +36,23 @@ const setupChart = (numb = 0) => {
             .text("Lebenserwartung")
             .attr("text-anchor", "start")
 
-        var z = d3.scaleSqrt()
+        var zAxis = d3.scaleSqrt()
             .domain([200000, 1310000000])
             .range([2, 30]);
 
-        var showTooltip = function(d) {
+        var showTooltip = (d) => {
             tooltip
                 .transition()
                 .duration(200)
             tooltip
                 .style("opacity", 1)
                 .html("Land: " + d.land)
+                .style("width", `${750 - margin.left - margin.right}px`)
                 .style("font-weight", "bold")
                 .style("left", (d3.mouse(this)[0] + 30) + "px")
                 .style("top", (d3.mouse(this)[1] + 30) + "px")
         }
-        var hideTooltip = function(d) {
+        var hideTooltip = () => {
             tooltip
                 .transition()
                 .duration(200)
@@ -68,13 +69,13 @@ const setupChart = (numb = 0) => {
             .enter()
             .append("circle")
             .attr("cx", function(d) {
-                return x(d.gdpPercap);
+                return xAxis(d.gdpPercap);
             })
             .attr("cy", function(d) {
-                return y(d.lifeExp);
+                return yAxis(d.lifeExp);
             })
             .attr("r", function(d) {
-                return z(d.pop);
+                return zAxis(d.pop);
             })
             .style("fill", function(d, i) {
                 return colors[i];
@@ -83,15 +84,15 @@ const setupChart = (numb = 0) => {
             .on("mouseleave", hideTooltip)
     })
 };
+
 const margin = {
     top: 40,
-    right: 150,
+    right: 20,
     bottom: 60,
     left: 30
 };
 const width = 750 - margin.left - margin.right;
 const height = 630 - margin.top - margin.bottom;
-
 const slider = document.getElementById("slider");
 slider.style.width = `${width}px`;
 slider.style.marginLeft = `${margin.left}px`;
