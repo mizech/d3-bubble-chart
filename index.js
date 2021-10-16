@@ -47,10 +47,7 @@ const setupChart = (numb = 0) => {
             tooltip
                 .style("opacity", 1)
                 .html("Land: " + d.land)
-                .style("width", `${750 - margin.left - margin.right}px`)
-                .style("font-weight", "bold")
-                .style("left", (d3.mouse(this)[0] + 30) + "px")
-                .style("top", (d3.mouse(this)[1] + 30) + "px")
+                .style("width", `${450 - margin.left - margin.right}px`)
         }
         var hideTooltip = () => {
             tooltip
@@ -104,7 +101,7 @@ var tooltip = d3.select("#chart_root")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
-    .style("background-color", "lightgrey")
+    .style("background-color", "#343434")
     .style("border-radius", "5px")
     .style("padding", "10px")
     .style("color", "white")
