@@ -5,7 +5,7 @@
 Darstellung von Lebenserwartung, Einkommen pro Kopf, Einwohnerzahl für 10 verschiedene Länder und für 10 verschiedene Jahre.
 
 <div style="text-align: center">
-  <img src="./images/image1.png" alt="screenshot 1" width="280" />&nbsp; 
-  <img src="./images/image2.png" alt="screenshot 2" width="280" />&nbsp;
-  <img src="./images/image3.png" alt="screenshot 3" width="280" />&nbsp;
+  <img src="./images/image1.png" alt="screenshot 1" width="400" />&nbsp; 
+  <img src="./images/image2.png" alt="screenshot 2" width="400" />&nbsp;
+  <img src="./images/image3.png" alt="screenshot 3" width="400" />&nbsp;
 </div>
